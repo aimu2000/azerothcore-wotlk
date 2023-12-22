@@ -55,3 +55,5 @@ npcbot spawn
 
 登陆器：
 链接: https://pan.baidu.com/s/1bXnGtWdHukHsBJ6rRgtN7g?pwd=g9x5 提取码: g9x5
+
+后台运行 screen 或加 nohup 这两命令
