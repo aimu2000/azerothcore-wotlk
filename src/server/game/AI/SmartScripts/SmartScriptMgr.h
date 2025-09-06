@@ -738,8 +738,9 @@ enum SMART_ACTION
     SMART_ACTION_MOVEMENT_PAUSE                     = 235,    // timer
     SMART_ACTION_MOVEMENT_RESUME                    = 236,    // timerOverride
     SMART_ACTION_WORLD_SCRIPT                       = 237,    // eventId, param
+    SMART_ACTION_DISABLE_REWARD                     = 238,    // reputation 0/1, loot 0/1
 
-    SMART_ACTION_AC_END                             = 238,    // placeholder
+    SMART_ACTION_AC_END                             = 239,    // placeholder
 };
 
 enum class SmartActionSummonCreatureFlags
@@ -1283,8 +1284,11 @@ struct SmartAction
 
         struct
         {
-            std::array<uint32, SMART_ACTION_PARAM_COUNT> wps;
-        } closestWaypointFromList;
+            uint32 pathId1;
+            uint32 pathId2;
+            uint32 repeat;
+            uint32 run;
+        } startClosestWaypoint;
 
         struct
         {
@@ -1501,6 +1505,12 @@ struct SmartAction
             uint32 param5;
             uint32 param6;
         } raw;
+
+        struct
+        {
+            SAIBool reputation;
+            SAIBool loot;
+        } reward;
     };
 };
 
@@ -2219,6 +2229,7 @@ private:
         return true;
     }
 
+    static bool IsSAIBoolValid(SmartScriptHolder const& e, SAIBool value);
     static bool IsTextValid(SmartScriptHolder const& e, uint32 id);
     static bool CheckUnusedEventParams(SmartScriptHolder const& e);
     static bool CheckUnusedActionParams(SmartScriptHolder const& e);
